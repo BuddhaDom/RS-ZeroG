@@ -170,6 +170,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7466390464975217435}
+  - {fileID: 8592516104229845444}
   - {fileID: 6579768342974506857}
   - {fileID: 9133883635189238437}
   m_Father: {fileID: 0}
@@ -186,11 +187,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2707ff3094c7ce4f9988ba0bc9a547e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  strengthMagnitude: 150
   ropeAnchor: {fileID: 7466390464975217435}
   ropeUnitBase: {fileID: 2371399420503070372}
   ropeContainer: {fileID: 9133883635189238437}
-  tireRopeUnit: {fileID: 6475420642335430514}
-  ropeLength: 1
+  tireRopeUnit: {fileID: 8481376962794277343}
 --- !u!1 &3281845618533329673
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +224,123 @@ Transform:
   - {fileID: 2478597739724580543}
   m_Father: {fileID: 3641426705177074368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2680679356065301674
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3641426705177074368}
+    m_Modifications:
+    - target: {fileID: 4131745948782136203, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_Name
+      value: Tire
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5145336640728777961, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2187485158407881606}
+  m_SourcePrefab: {fileID: 100100000, guid: 7f7ce5a85d49cee45af1c3513cbf4f55, type: 3}
+--- !u!1 &7085367012419829827 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5145336640728777961, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+    type: 3}
+  m_PrefabInstance: {fileID: 2680679356065301674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &2187485158407881606
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7085367012419829827}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8481376962794277343 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5800716321192021365, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+    type: 3}
+  m_PrefabInstance: {fileID: 2680679356065301674}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f85c1670dde4f54eac0147cb134fa26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8592516104229845444 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5912399979457002862, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+    type: 3}
+  m_PrefabInstance: {fileID: 2680679356065301674}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3467879827006710475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -392,6 +510,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tire Rope Unit
       objectReference: {fileID: 0}
+    - target: {fileID: 8727453463270322833, guid: c9105ed0c946da84a959430b32deb4ca,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -401,18 +524,6 @@ PrefabInstance:
       addedObject: {fileID: 5661184943627455876}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9105ed0c946da84a959430b32deb4ca, type: 3}
---- !u!114 &6475420642335430514 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1209363153014322287, guid: c9105ed0c946da84a959430b32deb4ca,
-    type: 3}
-  m_PrefabInstance: {fileID: 5266350245108769565}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f85c1670dde4f54eac0147cb134fa26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6579768342974506857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1316702382186611828, guid: c9105ed0c946da84a959430b32deb4ca,

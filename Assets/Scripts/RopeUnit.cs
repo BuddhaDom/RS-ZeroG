@@ -1,10 +1,17 @@
+using System;
 using UnityEngine;
 
 public class RopeUnit : MonoBehaviour
 {
-    [SerializeField] private ConfigurableJoint joint;
-    [SerializeField] private Rigidbody rb;
+    public ConfigurableJoint joint;
+    public Rigidbody rb;
     public Transform connectionPoint;
+    
+    private void Awake()
+    {
+        joint = GetComponent<ConfigurableJoint>();
+        rb = GetComponent<Rigidbody>();
+    }
 
     public void TieTo(Rigidbody body) =>
         joint.connectedBody = body;
