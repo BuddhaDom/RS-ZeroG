@@ -1,24 +1,29 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class RopeSliderScript : MonoBehaviour
 {
     public Slider slider;
     private float savedSliderValue;
+    public TMP_Text uiValue;
 
     void Start()
     {
-        //slider.onValueChanged.AddListener(OnSliderValueChanged);
+        slider.onValueChanged.AddListener(OnSliderValueChanged);
         savedSliderValue = slider.value;
+        uiValue.SetText(slider.value.ToString());
+        GameManager.RopeLengthUpdated.Invoke((int)slider.value);
     }
 
-    /*
+    
     private void OnSliderValueChanged(float value)
     {
-        Debug.Log("Slider value during drag: " + value);
+        uiValue.SetText(((int)value).ToString());
+        savedSliderValue = slider.value;
+        GameManager.RopeLengthUpdated.Invoke((int)value);
     }
-    */
+    
 
     public float GetSavedValue()
     {

@@ -189,8 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f85c1670dde4f54eac0147cb134fa26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joint: {fileID: 6831269571035612972}
-  rb: {fileID: -8085153748382326381}
+  joint: {fileID: 0}
+  rb: {fileID: 0}
   connectionPoint: {fileID: 7585086539368908290}
 --- !u!54 &-8085153748382326381
 Rigidbody:
@@ -200,7 +200,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8727453463270322833}
   serializedVersion: 4
-  m_Mass: 0.5
+  m_Mass: 0.05
   m_Drag: 0.1
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -237,9 +237,9 @@ ConfigurableJoint:
   m_XMotion: 0
   m_YMotion: 0
   m_ZMotion: 0
-  m_AngularXMotion: 0
-  m_AngularYMotion: 1
-  m_AngularZMotion: 1
+  m_AngularXMotion: 2
+  m_AngularYMotion: 2
+  m_AngularZMotion: 2
   m_LinearLimitSpring:
     spring: 0
     damper: 0
@@ -262,11 +262,11 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 120
+    limit: 150
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
-    limit: 120
+    limit: 150
     bounciness: 0
     contactDistance: 0
   m_TargetPosition: {x: 0, y: 0, z: 0}
