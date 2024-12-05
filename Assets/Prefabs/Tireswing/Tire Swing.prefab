@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2707ff3094c7ce4f9988ba0bc9a547e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strengthMagnitude: 150
+  strengthMagnitude: 10000
   ropeAnchor: {fileID: 7466390464975217435}
   ropeUnitBase: {fileID: 2371399420503070372}
   ropeContainer: {fileID: 9133883635189238437}
