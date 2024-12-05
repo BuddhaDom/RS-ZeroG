@@ -19,17 +19,24 @@ public class PowerSliderScript : MonoBehaviour, IEndDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //Debug.Log(slider.value);
         savedSliderValue = slider.value;
         GameManager.RopeStrengthReleased.Invoke(slider.value);
-        uiValue.SetText(slider.value.ToString());
         slider.value = 0f;
     }
 
     private void OnSliderValueChanged(float value)
     {
         savedSliderValue = slider.value;
-        uiValue.SetText(slider.value.ToString());
+
+        if (Mathf.Approximately(value, 0f))
+        {
+            uiValue.SetText("0");
+        }
+        else
+        {
+            uiValue.SetText(slider.value.ToString("F2"));
+        }
+
         fill.GetComponent<Image>().color = UpdatePowerColor(savedSliderValue);
     }
 
