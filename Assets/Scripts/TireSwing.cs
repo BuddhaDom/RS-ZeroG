@@ -12,13 +12,13 @@ public class TireSwing : MonoBehaviour
     public Func<float> LerpFunction = null;
     
     [Header("Rope Properties")]
+    [SerializeField] private Transform ropeAnchor;
     private readonly List<RopeUnit> ropeUnits = new();
     [SerializeField] private RopeUnit ropeUnitBase;
     [SerializeField] private Transform ropeContainer;
     [SerializeField] private RopeUnit tireRopeUnit;
     private int ropeLength;
     private int lastRopeLength;
-    [SerializeField] private LayerMask swingExcludeLayer;
 
     private const int LengthCap = 100;
     
@@ -27,12 +27,12 @@ public class TireSwing : MonoBehaviour
 
     private void Start()
     {
-        GameManager.RopeLengthUpdated.AddListener(SetLength);
-        GameManager.RopeStrengthReleased.AddListener(RandomStrengthApplication);
-        
         ropeUnits.Add(ropeUnitBase);
         SetLength(ropeLength); 
         TieAndReposition(tireRopeUnit);
+        
+        GameManager.RopeLengthUpdated.AddListener(SetLength);
+        GameManager.RopeStrengthReleased.AddListener(RandomStrengthApplication);
     }
 
     private void Update()
@@ -59,10 +59,6 @@ public class TireSwing : MonoBehaviour
                 RemoveRopeUnit();
         
         TieAndReposition(tireRopeUnit);
-        
-        foreach (var ropeUnit in ropeUnits)
-            ropeUnit.ropeCollider.excludeLayers = LayerMask.GetMask();
-        lastRopeUnit.ropeCollider.excludeLayers = swingExcludeLayer;
     }
 
     private void AddRopeUnit()
@@ -86,14 +82,14 @@ public class TireSwing : MonoBehaviour
 
     private void RandomStrengthApplication(float strength)
     {
-        var force = new Vector3(Random.value*2-1, Random.value*2-1, Random.value*2-1).normalized;
-        var position =
-            tireRopeUnit.ropeCollider.transform.position +
-            new Vector3(Random.value*2-1, Random.value*2-1, Random.value*2-1).normalized
+        var force = new Vector3(Random.value, Random.value, Random.value).normalized;
+        var position = 
+            tireRopeUnit.transform.position + 
+            new Vector3(Random.value, Random.value, Random.value).normalized 
             * 0.5f * tireRopeUnit.transform.lossyScale.x;
         
         tireRopeUnit.rb.AddForceAtPosition(force * strength * strengthMagnitude, position);
         
-        Debug.DrawLine(Vector3.Lerp(position-force, position, 0.8f), position, Color.red, 2f);
+        Debug.DrawLine(position - force, position, Color.red, 2);
     }
 }
