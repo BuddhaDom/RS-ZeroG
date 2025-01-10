@@ -1,86 +1,58 @@
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
-using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class mapMovement : MonoBehaviour
 {
-    public ARRaycastManager raycastManager; // Drag your ARRaycastManager here in the Inspector
-    public Camera arCamera; // Drag your AR Camera here in the Inspector
-    private GameObject selectedObject; // Currently selected object for manipulation
-    private Vector2 startTouchPosition; // Start position of touch for drag detection
-    private bool isDragging = false;
+    public Camera mainCamera;
+    public string objectTag = "Map"; // Set tag name on object
+    public float spinMultiplier = 5f;
+    public float momentumDamping = 0.98f;
+    public float minimumMomentum = 0.1f;
+
+    private Vector3 currentRotationAxis;
+    private float currentRotationSpeed;
+    private Vector2 startTouchPosition;
 
     void Update()
     {
-        // Handle touch input
-        if (Input.touchCount > 0)
+        if (Touchscreen.current != null)
         {
-            Touch touch = Input.GetTouch(0);
+            var touch = Touchscreen.current.primaryTouch;
 
-            if (touch.phase == TouchPhase.Began)
+            if (touch.phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Began)
             {
-                HandleTouchStart(touch.position);
+                startTouchPosition = touch.position.ReadValue();
+                currentRotationSpeed = 0;
             }
-            else if (touch.phase == TouchPhase.Moved && selectedObject != null)
-            {
-                HandleDragging(touch);
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                isDragging = false;
-                selectedObject = null;
-            }
-        }
-    }
 
-    private void HandleTouchStart(Vector2 touchPosition)
-    {
-        // Perform AR raycast to detect surfaces
-        List<ARRaycastHit> hits = new List<ARRaycastHit>();
-        if (raycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
-        {
-            // If a plane is hit, get the hit pose
-            Pose hitPose = hits[0].pose;
-
-            // Perform a physics raycast to check if a 3D object is touched
-            Ray ray = arCamera.ScreenPointToRay(touchPosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+            if (touch.phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Moved)
             {
-                // Check if the touched object is interactable (e.g., has a specific tag)
-                if (hit.transform.CompareTag("Interactable"))
+                Vector2 currentTouchPosition = touch.position.ReadValue();
+                Vector2 swipeDirection = currentTouchPosition - startTouchPosition;
+
+                Ray ray = mainCamera.ScreenPointToRay(startTouchPosition);
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    selectedObject = hit.transform.gameObject;
-                    startTouchPosition = touchPosition;
-                    isDragging = true;
+                    if (hit.transform.CompareTag(objectTag))
+                    {
+                        currentRotationAxis = new Vector3(swipeDirection.y, -swipeDirection.x, 0).normalized;
+                        currentRotationSpeed = swipeDirection.magnitude * spinMultiplier;
+                        hit.transform.Rotate(currentRotationAxis, currentRotationSpeed * Time.deltaTime, Space.World);
+                        startTouchPosition = currentTouchPosition;
+                    }
                 }
             }
+
+            if (touch.phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Ended)
+            {
+                currentRotationSpeed *= 0.99f; // Change here to reduce drag.
+            }
         }
-    }
 
-    private void HandleDragging(Touch touch)
-    {
-        Vector2 currentTouchPosition = touch.position;
-        Vector2 dragDelta = currentTouchPosition - startTouchPosition;
-
-        // Expand/Shrink Object Based on Vertical Drag
-        float scaleChange = dragDelta.y * 0.01f;
-        selectedObject.transform.localScale += Vector3.one * scaleChange;
-
-        // Spin Object Based on Horizontal Drag
-        float spinAngle = dragDelta.x * 0.2f; // Adjust sensitivity as needed
-        selectedObject.transform.Rotate(Vector3.up, spinAngle, Space.World);
-
-        // Paint Object with Random Color
-        Renderer objectRenderer = selectedObject.GetComponent<Renderer>();
-        if (objectRenderer != null)
+        if (currentRotationSpeed > minimumMomentum)
         {
-            objectRenderer.material.color = new Color(Random.value, Random.value, Random.value);
+            transform.Rotate(currentRotationAxis, currentRotationSpeed * Time.deltaTime, Space.World);
+            currentRotationSpeed *= momentumDamping;
         }
-
-        // Update starting position for smooth dragging
-        startTouchPosition = currentTouchPosition;
     }
 }
