@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class TireSwing : MonoBehaviour
 {
     [Header("Strength Values")] 
     public float strengthMagnitude;
-    public Func<float> LerpFunction = null;
+    public float cooldown;
+    private float lastShotTime;
     
     [Header("Rope Properties")]
     [SerializeField] private Transform ropeAnchor;
@@ -20,6 +23,9 @@ public class TireSwing : MonoBehaviour
     private int ropeLength;
     private int lastRopeLength;
 
+    [Header("Raycast")] 
+    [SerializeField] private LayerMask tireLayer;
+    
     private const int LengthCap = 100;
     
     private RopeUnit lastRopeUnit => ropeUnits.Last();
@@ -32,7 +38,7 @@ public class TireSwing : MonoBehaviour
         TieAndReposition(tireRopeUnit);
         
         GameManager.RopeLengthUpdated.AddListener(SetLength);
-        GameManager.RopeStrengthReleased.AddListener(RandomStrengthApplication);
+        GameManager.RopeStrengthReleased.AddListener(ApplyStrengthAtScreenCenter);
     }
 
     private void Update()
@@ -42,6 +48,7 @@ public class TireSwing : MonoBehaviour
         //     SetLength(ropeLength);
         // }
         // ropeUnitBase.transform.position = ropeAnchor.position;
+        
         lastRopeLength = ropeLength;
     }
 
@@ -91,5 +98,27 @@ public class TireSwing : MonoBehaviour
         tireRopeUnit.rb.AddForceAtPosition(force * strength * strengthMagnitude, position);
         
         Debug.DrawLine(position - force, position, Color.red, 2);
+    }
+
+    private void ApplyStrengthAtScreenCenter(float strength)
+    {
+        if (Time.time - lastShotTime < cooldown) return;
+        
+        Assert.IsNotNull(Camera.main, "No main camera found.");
+        
+        var currentCamera = Camera.main.transform;
+
+        if (!Physics.Raycast(
+                currentCamera.position, 
+                currentCamera.TransformDirection(Vector3.forward), 
+                out var hit, Mathf.Infinity,
+                tireLayer)
+           ) return;
+        
+        tireRopeUnit.rb.AddForceAtPosition(
+            currentCamera.TransformDirection(Vector3.forward).normalized * strength * strengthMagnitude, hit.point);
+        Debug.DrawLine(hit.point, currentCamera.position , Color.red, 2);
+        
+        lastShotTime = Time.time;
     }
 }

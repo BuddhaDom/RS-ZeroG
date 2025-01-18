@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 706871434771662122}
   - component: {fileID: 6742159087749693340}
   - component: {fileID: 8592754940930561039}
-  - component: {fileID: 8233437489216981773}
+  - component: {fileID: 2242823763865519590}
   m_Layer: 6
   m_Name: Visual and Collider
   m_TagString: Untagged
@@ -118,8 +118,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8233437489216981773
-CapsuleCollider:
+--- !u!135 &2242823763865519590
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -136,11 +136,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 3
+  m_Radius: 0.45
+  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!1 &8727453463270322833
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,11 +236,11 @@ ConfigurableJoint:
   m_YMotion: 0
   m_ZMotion: 0
   m_AngularXMotion: 2
-  m_AngularYMotion: 2
+  m_AngularYMotion: 1
   m_AngularZMotion: 2
   m_LinearLimitSpring:
-    spring: 0.1
-    damper: 0.1
+    spring: 0
+    damper: 0
   m_LinearLimit:
     limit: 0
     bounciness: 0
@@ -262,7 +260,7 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 150
+    limit: 30
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -318,6 +316,6 @@ ConfigurableJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 1
+  m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1

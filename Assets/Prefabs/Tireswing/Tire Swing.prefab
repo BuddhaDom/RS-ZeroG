@@ -78,11 +78,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2707ff3094c7ce4f9988ba0bc9a547e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strengthMagnitude: 300
+  strengthMagnitude: 10
+  cooldown: 2
   ropeAnchor: {fileID: 7466390464975217435}
   ropeUnitBase: {fileID: 2371399420503070372}
   ropeContainer: {fileID: 9133883635189238437}
   tireRopeUnit: {fileID: 8481376962794277343}
+  tireLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &3281845618533329673
 GameObject:
   m_ObjectHideFlags: 0
