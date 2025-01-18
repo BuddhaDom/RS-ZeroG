@@ -20,8 +20,8 @@ public class collision : MonoBehaviour
 
     private void OnCollisionEnter(Collision col)
     {
-        slider = GameObject.FindGameObjectWithTag("Lenghth_slider").GetComponent<Slider>();
-        data_saver = GameObject.FindGameObjectWithTag("Data_Saver").GetComponent<Data_Saver>();
+        slider = GameManager.UI.RopeSlider.slider;
+        data_saver = GameManager.DataSaver;
 
 
         Vector3 velocity = col.relativeVelocity;
@@ -35,7 +35,7 @@ public class collision : MonoBehaviour
 
             Destroy(transform.parent.gameObject);
 
-            slider.value = 0;
+            slider.value = 1;
 
   
         }
@@ -45,8 +45,7 @@ public class collision : MonoBehaviour
 
             GameObject newTire = (GameObject)Instantiate(prephab, (data_saver.last_ancor.transform.position + new Vector3(0, 0, 0)), (data_saver.last_ancor.transform.rotation));
             Destroy(transform.parent.gameObject);
-            slider.value = 0;
-
+            slider.value = 1;
         }
 
         if (!col.gameObject.CompareTag("Rope") && (velocity.x > 0.1 || velocity.y > 0.1 || velocity.z > 0.1))

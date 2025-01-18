@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Data_Saver : MonoBehaviour
@@ -13,5 +14,10 @@ public class Data_Saver : MonoBehaviour
     private void Awake()
     {
        audio_source = GameObject.FindGameObjectWithTag("audio_source").GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        GameManager.DataSaver = this;
     }
 }
