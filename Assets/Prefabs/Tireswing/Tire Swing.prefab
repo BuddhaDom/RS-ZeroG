@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 9133883635189238437}
   m_Layer: 0
   m_Name: Rope
-  m_TagString: Untagged
+  m_TagString: Rope
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -183,15 +183,44 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4131745948782136203, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6085873704335965422}
   m_SourcePrefab: {fileID: 100100000, guid: 7f7ce5a85d49cee45af1c3513cbf4f55, type: 3}
+--- !u!1 &2046119290086575905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4131745948782136203, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
+    type: 3}
+  m_PrefabInstance: {fileID: 2680679356065301674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6085873704335965422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046119290086575905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e977543d44bc33438ab4e8c499e6f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audio_source: {fileID: 5507903123063809079, guid: 4c1aa96f529dbdc4db33b35b6add8750,
+    type: 3}
+  collision_sound: {fileID: 8300000, guid: cde7e8ec5786dfd40976b71938f92c8a, type: 3}
+  trap_sound: {fileID: 8300000, guid: b8867e66f570ea24ca0a618d7b0561be, type: 3}
+  prephab: {fileID: 6845097929983544076, guid: 0e3a5e11c28868748b7351233a2e2c63, type: 3}
+  _particle: {fileID: 5539333489745597801, guid: 18a0c5447fcdcf24f8d608d657f107b8,
+    type: 3}
 --- !u!114 &8481376962794277343 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5800716321192021365, guid: 7f7ce5a85d49cee45af1c3513cbf4f55,
     type: 3}
   m_PrefabInstance: {fileID: 2680679356065301674}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2046119290086575905}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f85c1670dde4f54eac0147cb134fa26, type: 3}
@@ -265,6 +294,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rope Unit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727453463270322833, guid: c9105ed0c946da84a959430b32deb4ca,
+        type: 3}
+      propertyPath: m_TagString
+      value: Rope
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
