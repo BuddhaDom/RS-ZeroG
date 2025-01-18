@@ -38,6 +38,7 @@ public class TireSwing : MonoBehaviour
         
         GameManager.RopeLengthUpdated.AddListener(SetLength);
         GameManager.RopeStrengthReleased.AddListener(ApplyStrengthAtScreenCenter);
+        GameManager.TireSwing = this;
     }
 
     private void Update()
