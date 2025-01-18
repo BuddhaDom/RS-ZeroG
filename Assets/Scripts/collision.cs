@@ -7,11 +7,7 @@ using UnityEngine.UI;
 public class collision : MonoBehaviour
 {
 
-    /*
-    public AudioSource audio_source;
-    public AudioClip collision_sound;
-    public AudioClip trap_sound;
-    */
+
 
     private Slider slider;
     private Data_Saver data_saver;
