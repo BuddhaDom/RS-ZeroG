@@ -3,12 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - anchor
+  - Rope
+  - Trap
+  - Lenghth_slider
+  - Data_Saver
+  - Audio-source
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - anchor
   - Water
   - UI
   - Rope
