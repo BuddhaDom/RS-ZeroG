@@ -14,7 +14,7 @@ public class PinchToZoom : MonoBehaviour
 
     void Update()
     {
-
+        if(Touchscreen.current == null) return;
         var touches = Touchscreen.current.touches;
 
         if (touches.Count >= 2 && touches[0].phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Moved && touches[1].phase.ReadValue() == UnityEngine.InputSystem.TouchPhase.Moved)

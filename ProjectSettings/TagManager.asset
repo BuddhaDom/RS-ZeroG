@@ -10,6 +10,8 @@ TagManager:
   - Lenghth_slider
   - Data_Saver
   - Audio-source
+  - audio_source
+  - Map
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - Rope
   - Swing
   - XR Rig
-  - 
+  - Map
   - 
   - 
   - 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 using UnityEngine.UI;
@@ -19,23 +20,24 @@ public class collision : MonoBehaviour
 
         Vector3 velocity = col.relativeVelocity;
 
-        if (col.gameObject.CompareTag("anchor") && col.gameObject != data_saver.last_ancor)
+        var swingAnchor = col.gameObject.GetComponentInParent<SwingAnchor>();
+        
+        if (col.gameObject.CompareTag("anchor") && swingAnchor != data_saver.last_ancor)
         {
+            if (swingAnchor == null) return;
+            
+            data_saver.last_ancor = swingAnchor;
 
-            data_saver.last_ancor = col.gameObject;
-
-            GameObject newTire = (GameObject)Instantiate(prephab, (col.transform.position + new Vector3(0, 0, 0)), (col.transform.rotation));
+            Instantiate(prephab, swingAnchor.transform);
             
             Destroy(transform.parent.gameObject);
 
             slider.value = 1;
-  
         }
 
         if (col.gameObject.CompareTag("Trap"))
         {
-
-            GameObject newTire = (GameObject)Instantiate(prephab, (data_saver.last_ancor.transform.position + new Vector3(0, 0, 0)), (data_saver.last_ancor.transform.rotation));
+            Instantiate(prephab, data_saver.last_ancor.transform);
             Destroy(transform.parent.gameObject);
             slider.value = 1;
         }
@@ -52,21 +54,11 @@ public class collision : MonoBehaviour
                 data_saver.audio_source.Play();
             }
 
-
             ContactPoint contact = col.contacts[0];
 
             GameManager.Destroy_After_Delay(Instantiate(_particle, contact.point, Quaternion.identity), 2.5f);
         }
     }
-
-    // private IEnumerator Destroy_After_Delay(ParticleSystem particle, float dealy)
-    // {
-    //     particle.Play();
-    //
-    //     yield return new WaitForSeconds(dealy);
-    //
-    //     Destroy(particle.gameObject);
-    // }
 }
 
 

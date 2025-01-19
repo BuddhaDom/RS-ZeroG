@@ -153,3 +153,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a74473b0707e246aa4587198732658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RopeSwingScale: 0

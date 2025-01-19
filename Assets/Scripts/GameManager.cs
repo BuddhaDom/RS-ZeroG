@@ -16,13 +16,4 @@ public static class GameManager
         particle.Play();
         Object.Destroy(particle, lifetime);
     }
-
-    // public static IEnumerator Destroy_After_Delay(ParticleSystem particle, float dealy)
-    // {
-    //     particle.Play();
-    //
-    //     yield return new WaitForSeconds(dealy);
-    //
-    //     Object.Destroy(particle.gameObject);
-    // }
 }
