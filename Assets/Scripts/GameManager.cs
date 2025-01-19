@@ -1,5 +1,6 @@
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public static class GameManager
 {
@@ -9,4 +10,19 @@ public static class GameManager
     public static MainUI UI;
     public static TireSwing TireSwing;
     public static Data_Saver DataSaver;
+    
+    public static void Destroy_After_Delay(ParticleSystem particle, float lifetime)
+    {
+        particle.Play();
+        Object.Destroy(particle, lifetime);
+    }
+
+    // public static IEnumerator Destroy_After_Delay(ParticleSystem particle, float dealy)
+    // {
+    //     particle.Play();
+    //
+    //     yield return new WaitForSeconds(dealy);
+    //
+    //     Object.Destroy(particle.gameObject);
+    // }
 }

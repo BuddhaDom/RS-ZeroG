@@ -55,23 +55,18 @@ public class collision : MonoBehaviour
 
             ContactPoint contact = col.contacts[0];
 
-            ParticleSystem particle = Instantiate(_particle, contact.point, Quaternion.identity);
-
-            StartCoroutine(Destroy_After_Delay(particle, 5f));
+            GameManager.Destroy_After_Delay(Instantiate(_particle, contact.point, Quaternion.identity), 2.5f);
         }
     }
 
-
-
-    private IEnumerator Destroy_After_Delay(ParticleSystem particle, float dealy)
-    {
-
-        particle.Play();
-
-        yield return new WaitForSeconds(dealy);
-
-        Destroy(particle.gameObject);
-    }
+    // private IEnumerator Destroy_After_Delay(ParticleSystem particle, float dealy)
+    // {
+    //     particle.Play();
+    //
+    //     yield return new WaitForSeconds(dealy);
+    //
+    //     Destroy(particle.gameObject);
+    // }
 }
 
 
