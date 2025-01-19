@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7585086539368908290}
   m_Layer: 6
   m_Name: Connection Point
-  m_TagString: Untagged
+  m_TagString: Rope
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 2242823763865519590}
   m_Layer: 6
   m_Name: Visual and Collider
-  m_TagString: Untagged
+  m_TagString: Rope
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,7 +153,7 @@ GameObject:
   - component: {fileID: 6831269571035612972}
   m_Layer: 6
   m_Name: Rope Unit
-  m_TagString: Untagged
+  m_TagString: Rope
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

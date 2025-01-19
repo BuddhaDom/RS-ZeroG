@@ -6,23 +6,16 @@ using UnityEngine.UI;
 
 public class collision : MonoBehaviour
 {
-
-
-
     private Slider slider;
     private Data_Saver data_saver;
 
     public GameObject prephab;
     public ParticleSystem _particle;
-
-
-
-
+    
     private void OnCollisionEnter(Collision col)
     {
         slider = GameManager.UI.RopeSlider.slider;
         data_saver = GameManager.DataSaver;
-
 
         Vector3 velocity = col.relativeVelocity;
 
@@ -32,11 +25,10 @@ public class collision : MonoBehaviour
             data_saver.last_ancor = col.gameObject;
 
             GameObject newTire = (GameObject)Instantiate(prephab, (col.transform.position + new Vector3(0, 0, 0)), (col.transform.rotation));
-
+            
             Destroy(transform.parent.gameObject);
 
             slider.value = 1;
-
   
         }
 
