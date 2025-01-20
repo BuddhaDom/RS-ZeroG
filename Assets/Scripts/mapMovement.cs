@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class mapMovement : MonoBehaviour
 {
-    public Camera mainCamera;
+    private Camera mainCamera;
     public string objectTag = "Map"; // Set tag name on object
     public float spinMultiplier = 5f;
     public float momentumDamping = 0.98f;
@@ -12,6 +13,11 @@ public class mapMovement : MonoBehaviour
     private Vector3 currentRotationAxis;
     private float currentRotationSpeed;
     private Vector2 startTouchPosition;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     void Update()
     {

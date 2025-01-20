@@ -5,7 +5,7 @@ public class Data_Saver : MonoBehaviour
 {
 
 
-    public GameObject last_ancor;
+    public SwingAnchor last_ancor;
 
     public AudioSource audio_source;
     public AudioClip collision_sound;
@@ -19,5 +19,10 @@ public class Data_Saver : MonoBehaviour
     private void Start()
     {
         GameManager.DataSaver = this;
+    }
+
+    private void LateUpdate()
+    {
+        // Restore all physics whenever disabled;
     }
 }

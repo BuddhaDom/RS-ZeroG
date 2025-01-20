@@ -1,5 +1,6 @@
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 public static class GameManager
 {
@@ -9,4 +10,17 @@ public static class GameManager
     public static MainUI UI;
     public static TireSwing TireSwing;
     public static Data_Saver DataSaver;
+    public static MapAR MapAR;
+    public static MapHolder MapHolder;
+    
+    public static void Destroy_After_Delay(ParticleSystem particle, float lifetime)
+    {
+        particle.Play();
+        Object.Destroy(particle, lifetime);
+    }
+
+    public static void SetPhysicsEnabled(bool isEnabled, int framesToSkip = 1)
+    {
+        
+    }
 }
