@@ -55,8 +55,10 @@ public class collision : MonoBehaviour
             }
 
             ContactPoint contact = col.contacts[0];
-
-            GameManager.Destroy_After_Delay(Instantiate(_particle, contact.point, Quaternion.identity), 2.5f);
+            var particleInstance = Instantiate(_particle, contact.point, Quaternion.identity, transform);
+            particleInstance.transform.localScale = Vector3.one;
+            particleInstance.transform.parent = null;
+            GameManager.Destroy_After_Delay(particleInstance, 2.5f);
         }
     }
 }

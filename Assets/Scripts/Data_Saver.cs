@@ -20,4 +20,9 @@ public class Data_Saver : MonoBehaviour
     {
         GameManager.DataSaver = this;
     }
+
+    private void LateUpdate()
+    {
+        // Restore all physics whenever disabled;
+    }
 }

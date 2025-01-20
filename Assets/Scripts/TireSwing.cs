@@ -1,17 +1,19 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.XR.ARFoundation;
 using Random = UnityEngine.Random;
 
 public class TireSwing : MonoBehaviour
 {
-    [Header("Strength Values")] 
+    
+    [Header("Physics")] 
     public float strengthMagnitude;
     public float cooldown;
     private float lastShotTime;
+    [SerializeField] private float connectedMassStrengthMultiplier = 1f;
     
     [Header("Rope Properties")]
     [SerializeField] private Transform ropeAnchor;
@@ -21,6 +23,15 @@ public class TireSwing : MonoBehaviour
     [SerializeField] private RopeUnit tireRopeUnit;
     private int ropeLength;
     private int lastRopeLength;
+    private float startingMass;
+    private float startingAngularDamp;
+    private float startingLinearDamp;
+    private Vector3 worldPosition;
+    private int physicsSkipFrames;
+    private ARAnchor holdingAnchor;
+    private Vector3 lastRelativePosition;
+
+    private Vector3 lastLossyScale;
 
     [Header("Raycast")] 
     [SerializeField] private LayerMask tireLayer;
@@ -32,6 +43,8 @@ public class TireSwing : MonoBehaviour
 
     private void Start()
     {
+        holdingAnchor = GetComponentInParent<ARAnchor>();
+        
         ropeUnits.Add(ropeUnitBase);
         SetLength(ropeLength); 
         TieAndReposition(tireRopeUnit);
@@ -39,17 +52,43 @@ public class TireSwing : MonoBehaviour
         GameManager.RopeLengthUpdated.AddListener(SetLength);
         GameManager.RopeStrengthReleased.AddListener(ApplyStrengthAtScreenCenter);
         GameManager.TireSwing = this;
+        
+        lastLossyScale = Vector3.zero;
+        
+        startingMass = tireRopeUnit.rb.mass;
+        startingAngularDamp = tireRopeUnit.rb.angularDamping;
+        startingLinearDamp = tireRopeUnit.rb.linearDamping;
+        worldPosition = transform.position;
+
+        UpdatePhysicsVariables();
     }
 
     private void Update()
     {
-        // if (ropeLength != lastRopeLength)
-        // {
-        //     SetLength(ropeLength);
-        // }
-        // ropeUnitBase.transform.position = ropeAnchor.position;
-        
+        if (lastLossyScale != transform.lossyScale || ropeLength != lastRopeLength)
+        {
+            UpdatePhysicsVariables();
+        }
+
+        lastRelativePosition = holdingAnchor.transform.InverseTransformPoint(transform.position);
         lastRopeLength = ropeLength;
+        lastLossyScale = transform.lossyScale;
+    }
+
+    private void UpdatePhysicsVariables()
+    {
+        var modifier = transform.lossyScale.magnitude / Mathf.Sqrt(3);
+        foreach (var unit in ropeUnits)
+        {
+            //unit.rb.angularDamping = startingAngularDamp * modifier;
+            //unit.rb.linearDamping = startingLinearDamp * modifier;
+            unit.rb.mass = startingMass * modifier;
+            unit.joint.connectedMassScale = 1f;
+        }
+        //tireRopeUnit.rb.angularDamping = startingAngularDamp * modifier;
+        //tireRopeUnit.rb.linearDamping = startingLinearDamp * modifier;
+        tireRopeUnit.rb.mass = startingMass * modifier;
+        lastRopeUnit.joint.connectedMassScale = connectedMassStrengthMultiplier;
     }
 
     private void SetLength(int length)
@@ -66,6 +105,7 @@ public class TireSwing : MonoBehaviour
                 RemoveRopeUnit();
         
         TieAndReposition(tireRopeUnit);
+        UpdatePhysicsVariables();
     }
 
     private void AddRopeUnit()
@@ -116,7 +156,11 @@ public class TireSwing : MonoBehaviour
            ) return;
         
         tireRopeUnit.rb.AddForceAtPosition(
-            currentCamera.TransformDirection(Vector3.forward).normalized * strength * strengthMagnitude, hit.point);
+            // This is the strength calculation
+            currentCamera.TransformDirection(Vector3.forward).normalized * // The direction
+            strength * strengthMagnitude * // The strength
+            transform.lossyScale.magnitude / Mathf.Sqrt(3), // And adjusting strength for current size of the object
+            hit.point);
         Debug.DrawLine(hit.point, currentCamera.position , Color.red, 2);
         
         lastShotTime = Time.time;
